@@ -1,0 +1,44 @@
+html, body{
+	font-family: Helvetica, Arial, Sans-serif;
+	color: #070707;
+	overflow-x: hidden;
+}
+
+section{
+	padding: 10px;
+}
+
+input[type="checkbox"]{
+	width:15px;
+	height:15px;
+	margin-right:10px;
+}
+
+ul li{
+	padding:10px 0;
+	cursor: pointer;
+}
+
+label, input[type="checkbox"]{
+	cursor: pointer;
+}
+
+#type li{
+	display:inline-block;
+	width: 25%;
+	margin-left:-4px;
+	text-align:center;
+	line-height:30px;
+	box-sizing: border-box;
+	border-right: 1px solid rgba(128, 128, 128, 0.5);
+	border-bottom: 1px solid rgb(191, 191, 191);
+	cursor: pointer;
+}
+
+#type li:last-child{
+	border-right: none;
+}
+
+#type li.active{
+	border-bottom: 4px solid rgb(104, 104, 237);
+}

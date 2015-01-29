@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <title>Player Manager</title>
+    <link rel="stylesheet" href="css/reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/angular.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="data/list.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/factory.js"></script>
+  </head>
+  <body ng-controller="appController">
+  <ul id="type">
+    <li ng-repeat="tab in tabList" ng-class="{active:tab.isSelected}" ng-click="selectTab($index)">{{tab.tabname}}</li>
+  </ul>
+  <section id="playList" ng-show="tabList[0].isSelected" ng-controller="playlistController">
+    playlist
+  </section>
+
+  <section id="artistList" ng-show="tabList[1].isSelected" ng-controller="artistController">
+    artist
+  </section>
+  <section id="albumList" ng-show="tabList[2].isSelected" ng-controller="albumController">
+  {{openList}}
+    <label><input type="checkbox" ng-click="toggleSelectAll()" ng-model="selectAll"/>Select All</label>
+    <input type="search" ng-model="filtertxt" ng-change="updateSelectAll()"/>
+    <ul>
+        <li ng-repeat="member in filteredList = (albumList | filter:filtertxt)" ng-click="openList = !openList">
+          {{member.name}}
+        </li>
+    </ul>
+    <div ng-show="openList">
+      <label><input type="checkbox" ng-click="toggleSelectAll()" ng-model="selectAll"/>Select All</label>
+      <input type="search" ng-model="filtertxt" ng-change="updateSelectAll()"/>
+      <li ng-repeat="item in filteredList = (albumList[0].list | filter:filtertxt)">{{item.name}}
+      </li>
+    </div>
+  </section>
+  <section id="mp3List" ng-show="tabList[3].isSelected  " ng-controller="mp3Controller">
+    <label><input type="checkbox" ng-click="toggleSelectAll()" ng-model="selectAll"/>Select All</label>
+    <input type="search" ng-model="filtertxt" ng-change="updateSelectAll()"/>
+    <ul>
+      <li ng-repeat = "item in filteredList = (songsList | filter:filtertxt)">
+        <label><input type="checkbox" ng-model="item.isChecked" ng-change="updateSelectAll()"/>{{item.title}}</label>
+      </li>
+    </ul>
+  </section>  
+  </body>
+</html>
